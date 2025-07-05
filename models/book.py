@@ -20,12 +20,19 @@ class Book:
 
         if field not in options:
             return "Field not in valid options"
-
+        
+        if field in numeric_options and type(new) != int:
+            return f"'{field}' is a numeric field, and update type given is non-numeric '{new}' "
+        
+        # Validate all numeric options:
+        
         current_value = getattr(self, field)
 
         setattr(self, field, new)
         return f"{current_value} was updated to {new}"
+    
+
             
 test = Book(None, None, None, None, None, None, 10, 12)
-print(test.update_book(0, "available", 12))
+print(test.update_book(0, "available", "s"))
 print(test.available)
