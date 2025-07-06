@@ -9,11 +9,17 @@ import re
 # Must not contain letters, special characters, or spaces.
 # Must be present (required field).
 
-def validate_isbn(isbn: int):
+from storage import load_books
+from models.exceptions import InvalidISBN
+
+def validate_isbn(isbn_input: int):
     # Must be Unique
+    books = load_books()
+    for i, x in enumerate(books):
+        if x.isbn == isbn_input: raise InvalidISBN(f"ISBN {isbn_input} already exists")
     # Would have to check database
 
-    str_isbn = str(isbn)
+    str_isbn = str(isbn_input)
     # Validate ISBN not empty
     if len(str_isbn) == 0: return "ISBN cannot be an empty field" 
     # Validate Length (10-13 digits min)
@@ -67,15 +73,18 @@ def valdiate_str(title: None, author: None, publisher: None, genre: None):
                 num_errors.append(i)
             if i in symbols: 
                 sym_errors.append(i)
+        
+        num_errors_str = "".join(num_errors)
+        sym_errors_str = "".join(sym_errors)
 
         if num_errors and sym_errors:
-            return f"Invalid entry for author \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{"".join(num_errors)}'\n Symbols present: '{"".join(sym_errors)}'"
+            return f"Invalid entry for author \n Error: Cannot contain any numbers or symbols\n Numbers Present: {num_errors_str}\n Symbols present: {sym_errors_str}"
         
         if num_errors:
-            return f"Invalid entry for author \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{"".join(num_errors)}'\n'"
+            return f"Invalid entry for author \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{num_errors_str}'\n'"
 
         if sym_errors:
-            return f"Invalid entry for author \n Error: Cannot contain any symbols\n Symbolds Present: '{"".join(sym_errors)}'\n'"
+            return f"Invalid entry for author \n Error: Cannot contain any symbols\n Symbolds Present: '{sym_errors_str}'\n'"
 
     if publisher:
         if type(publisher) != str: return "Invalid entry for publisher\n Error: entry must be a string"
@@ -92,13 +101,13 @@ def valdiate_str(title: None, author: None, publisher: None, genre: None):
                 sym_errors.append(i)
 
         if num_errors and sym_errors:
-            return f"Invalid entry for publisher \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{"".join(num_errors)}'\n Symbols present: '{"".join(sym_errors)}'"
+            return f"Invalid entry for publisher \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{num_errors_str}'\n Symbols present: '{sym_errors_str}'"
         
         if num_errors:
-            return f"Invalid entry for publisher \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{"".join(num_errors)}'\n'"
+            return f"Invalid entry for publisher \n Error: Cannot contain any numbers or symbols\n Numbers Present: '{num_errors_str}'\n'"
 
         if sym_errors:
-            return f"Invalid entry for publisher \n Error: Cannot contain any symbols\n Symbolds Present: '{"".join(sym_errors)}'\n'"
+            return f"Invalid entry for publisher \n Error: Cannot contain any symbols\n Symbolds Present: '{sym_errors_str}'\n'"
 
               
 # 4. Publisher
