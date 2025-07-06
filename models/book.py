@@ -12,8 +12,6 @@ class Book:
         # Number of Copies in total
         self.total = total
 
-    
-
     # Update Book Details
     def update_book(self, isbn, field, new):
         options = ["isbn", "title", "author", "publisher", "pub_year", "genre", "available", "total"]
@@ -33,6 +31,18 @@ class Book:
         setattr(self, field, new)
         return f"{current_value} was updated to {new}"
     
+    def is_available(self):
+        return self.available > 0
+    
+    def borrow_copy(self):
+        if self.available > 0:
+            self.available -= 1
+            return True
+        return False
+
+    def return_copy(self):
+        if self.available < self.total:
+            self.available += 1
     # Displaying the object in desired and formatted way
     def __str__(self):
         # Formatting for courses and minors to be on new lines with dashes
@@ -52,6 +62,6 @@ class Book:
     #             f"name={self.get_name()}, age={self.get_age()}, "
     #             f"courses={self.get_courses()}, minors={self.get_minor()})")    
             
-test = Book(None, None, None, None, None, None, 10, 12)
-print(test.update_book(0, "available", "s"))
-print(test.available)
+# test = Book(None, None, None, None, None, None, 10, 12)
+# print(test.update_book(0, "available", "s"))
+# print(test.available)
