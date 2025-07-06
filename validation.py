@@ -10,14 +10,22 @@ import re
 # Must be present (required field).
 
 from storage import load_books
-from models.exceptions import InvalidISBN
+from models.exceptions import InvalidISBN, DatabaseException
+
+def validate_isbn_exists(isbn_input: int):
+    books = load_books()
+    if len(books) == 0: print(f"Error: Database is empty\nISBN: {isbn_input} does not exist!")  
+
+    for i, x in enumerate(books):
+        if x.isbn == isbn_input: return True
+    
+    return False
 
 def validate_isbn(isbn_input: int):
     # Must be Unique
     books = load_books()
     for i, x in enumerate(books):
         if x.isbn == isbn_input: raise InvalidISBN(f"ISBN {isbn_input} already exists")
-    # Would have to check database
 
     str_isbn = str(isbn_input)
     # Validate ISBN not empty
