@@ -1,4 +1,4 @@
-class InvalidBookException(Exception):
+class DatabaseException(Exception):
     # Exceptions for invalid ID input 
     def __init__(self, message):
         self.message = message
