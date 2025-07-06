@@ -1,3 +1,5 @@
 from models.book import Book
+from library_operations import add_book, list_all_books
 
-test = Book(None, None, None, None, None, None, 10, 12)
+# add_book(isbn=1234567890, title="Test", author="Test Author", publisher="Test Pub", pub_year=2005, genre="Test Genre", available=10, total=20)
+list_all_books()
