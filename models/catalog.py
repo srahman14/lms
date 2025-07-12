@@ -20,7 +20,7 @@ import time
 class Catalog:
     def __init__(self):
         self.books = load_books()
-
+        
     def view_books(self):
         books = load_books()
 
@@ -68,6 +68,46 @@ class Catalog:
         print(f"\nUpdated Books:...\n")
         time.sleep(3)
         self.view_books()
+    
+    def update_book(self, isbn, field, new_val):
+        try:
+            validate_isbn_exists(isbn)
+        except InvalidISBN as e:
+            print(f"{isbn} does not exist")
         
+        try:
+            books = load_books()
 
+            for i, x in enumerate(books):
+                if x.isbn == isbn:
+                    x.update_book(field=field, new=new_val)
+                    print(f"Book with {isbn} successfully updated {field} -> {new_val}")
+                    break
+            
+            save_books(books)
+        except Exception as e:
+            print(f"Error: {e}")
+
+    
+    def search_books(self, isbn, title, author, genre, filters):
+        if isbn:
+            validate_isbn_exists(isbn)
+        
+        pass
+
+    def check_availablity(self, isbn):
+        try:
+            validate_isbn_exists(isbn)
+        except InvalidISBN as e:
+            print(f"Error: {e}")
+
+        try:
+            books = load_books()
+
+            for i, x in enumerate(books):
+                if x.isbn == isbn:
+                    print(f"Books ISBN: {isbn}\nAvailable: {x.available}")            
+                    break
+        except Exception as e:
+            print(f"Error: {e}")    
     
