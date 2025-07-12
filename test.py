@@ -10,5 +10,7 @@ cat = Catalog()
 # list_all_books()
 
 # cat.remove_book(isbn=1234567890)
-cat.remove_book(isbn=1234567891)
+# cat.remove_book(isbn=1234567891)
 # cat.view_books()
+# cat.update_book(1234567892, field="Author", new_val="Test Update Author")
+cat.check_availablity(1234567892)
