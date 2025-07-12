@@ -1,4 +1,3 @@
-
 class Book:
     def __init__(self, isbn, title, author, publisher, pub_year, genre, available, total):
         self.isbn = isbn
@@ -13,13 +12,14 @@ class Book:
         self.total = total
 
     # Update Book Details
-    def update_book(self, isbn, field, new):
+    def update_book(self, field, new):
         options = ["isbn", "title", "author", "publisher", "pub_year", "genre", "available", "total"]
         numeric_options = ["pub_year", "available", "total", "isbn"]
-        # Verify ISBN is valid (for now just going to skip this as no database)
+        
+        field = field.strip().lower()
 
         if field not in options:
-            return "Field not in valid options"
+            return "Field not in valid options, valid fields:\n", options
         
         if field in numeric_options and type(new) != int:
             return f"'{field}' is a numeric field, and update type given is non-numeric '{new}' "
@@ -43,6 +43,7 @@ class Book:
     def return_copy(self):
         if self.available < self.total:
             self.available += 1
+
     # Displaying the object in desired and formatted way
     def __str__(self):
         # Formatting for courses and minors to be on new lines with dashes
