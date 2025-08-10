@@ -8,5 +8,25 @@
         "genre": "Test Genre",
         "available": 10,
         "total": 20
+    },
+    {
+        "isbn": 1234567890,
+        "title": "Harry Potter",
+        "author": "J.K Rowling",
+        "publisher": "Owl",
+        "pub_year": 2005,
+        "genre": "Sci-fi",
+        "available": 15,
+        "total": 20
+    },
+    {
+        "isbn": 1234567891,
+        "title": "Atomic Habits",
+        "author": "James Clear",
+        "publisher": "Fox",
+        "pub_year": 2002,
+        "genre": "Productivity",
+        "available": 10,
+        "total": 20
     }
 ]
