@@ -88,19 +88,30 @@ class Catalog:
         except Exception as e:
             print(f"Error: {e}")
 
-    
-    def search_books(self, isbn, title, author, genre, filters):
-        if isbn:
-            validate_isbn_exists(isbn)
+    def search_books(self, isbn=None, title=None, author=None, genre=None):
+        books = load_books()
+        results = []
+
+        for book in books:
+            if isbn and book.isbn == isbn:
+                results.append(book)
+            elif title and title.lower() in book.title.lower():
+                results.append(book)
+            elif author and author.lower() in book.author.lower():
+                results.append(book)
+            elif genre and genre.lower() in book.genre.lower():
+                results.append(book)
+
+        if results:
+            for r in results:
+                print(r)
+        else:
+            print("No books found matching your search.")
+
         
-        pass
-
     def check_availablity(self, isbn):
-        try:
-            validate_isbn_exists(isbn)
-        except InvalidISBN as e:
-            print(f"Error: {e}")
-
+        if validate_isbn_exists(isbn) == False:
+            print(f"ISBN '{isbn}' does not exist")
         try:
             books = load_books()
 
@@ -108,6 +119,7 @@ class Catalog:
                 if x.isbn == isbn:
                     print(f"Books ISBN: {isbn}\nAvailable: {x.available}")            
                     break
+
         except Exception as e:
             print(f"Error: {e}")    
     
