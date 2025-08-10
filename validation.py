@@ -15,10 +15,10 @@ from models.exceptions import InvalidISBN, DatabaseException
 def validate_isbn_exists(isbn_input: int):
     books = load_books()
     if len(books) == 0: print(f"Error: Database is empty\nISBN: {isbn_input} does not exist!")  
-
+    
     for i, x in enumerate(books):
         if x.isbn == isbn_input: return True
-    
+
     return False
 
 def validate_isbn(isbn_input: int):
@@ -44,7 +44,6 @@ def validate_isbn(isbn_input: int):
 
 
 # ["isbn", "title", "author", "publisher", "pub_year", "genre", "available", "total"]
-
 
 # validate TITLE
 # Must be a non-empty string.
